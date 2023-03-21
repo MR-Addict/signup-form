@@ -21,11 +21,26 @@ export const authOptions: NextAuthOptions = {
         const result = await user.compare(username, password);
 
         if (result.status && result.user) {
-          return { name: result.user.username, email: result.user.email } as any;
+          console.log(user);
+
+          return result.user as any;
         } else return null;
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      // console.log(token, user);
+
+      user && (token.user = user);
+      return token;
+    },
+    session({ session, token }) {
+      // @ts-expect-error
+      session.user = token.user;
+      return session;
+    },
+  },
 };
 
 export default NextAuth(authOptions);
