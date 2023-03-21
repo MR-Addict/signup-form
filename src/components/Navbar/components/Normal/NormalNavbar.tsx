@@ -12,7 +12,7 @@ export default function NormalNavbar() {
   const rootPath = (usePathname() || "/").split("/").slice(0, 2).join("/");
 
   return (
-    <ul className='hidden md:flex flex-row gap-4'>
+    <ul className='hidden md:flex flex-row gap-6'>
       {navbarData
         .filter((item) => item.public || session)
         .map((item, index) => (

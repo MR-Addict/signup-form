@@ -10,7 +10,7 @@ const navbarData = [
     public: true,
   },
   {
-    title: "线上足球",
+    title: "足球仿真",
     link: "/football",
     public: true,
   },

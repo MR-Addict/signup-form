@@ -10,7 +10,7 @@ function Button({ title, callback }: { title: string; callback: Function }) {
     <button
       type='button'
       onClick={() => callback()}
-      className='py-1 px-4 rounded-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 duration-300'
+      className='py-1.5 px-4 md:px-6 rounded-sm outline outline-1 outline-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white duration-300'
     >
       {title}
     </button>

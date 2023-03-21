@@ -21,8 +21,6 @@ export const authOptions: NextAuthOptions = {
         const result = await user.compare(username, password);
 
         if (result.status && result.user) {
-          console.log(user);
-
           return result.user as any;
         } else return null;
       },
@@ -30,8 +28,6 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // console.log(token, user);
-
       user && (token.user = user);
       return token;
     },
