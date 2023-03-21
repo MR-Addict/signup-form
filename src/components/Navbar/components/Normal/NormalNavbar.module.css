@@ -1,0 +1,15 @@
+.link {
+  @apply text-lg  text-gray-700 relative;
+}
+.link:not(.active):hover,
+.link.active {
+  @apply text-blue-600;
+}
+.link::after {
+  content: "";
+  @apply duration-200 absolute left-0 -bottom-1 h-1 w-0 bg-blue-600;
+}
+.link:not(.active):hover::after,
+.link.active::after {
+  @apply w-full;
+}
