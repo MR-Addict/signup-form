@@ -1,0 +1,40 @@
+/* form */
+.form {
+  @apply w-full flex flex-col gap-5;
+}
+/* input */
+.input {
+  @apply w-full outline outline-1 outline-black rounded-sm px-3 py-1.5 text-gray-700;
+}
+
+.input:focus {
+  @apply outline-blue-600;
+}
+
+/* input group */
+.group {
+  @apply outline outline-1 outline-black shadow-md p-4 rounded-md flex flex-col gap-3;
+}
+
+/* element */
+.element {
+  @apply flex flex-col gap-0.5;
+}
+
+.element label {
+  @apply flex flex-row items-center gap-1;
+}
+
+/* submit button */
+.submit {
+  @apply py-2 px-7 rounded-md shadow-lg duration-300;
+}
+
+.form:not(:invalid) .submit.active:hover {
+  @apply bg-white text-blue-600;
+}
+
+.form:invalid .submit:hover,
+.submit.deactive:hover {
+  @apply cursor-not-allowed;
+}

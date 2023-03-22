@@ -24,7 +24,7 @@ export const PopupContextProvider: React.FC<React.PropsWithChildren<{}>> = ({ ch
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsPopup(false);
-    }, 2000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, [popupData]);
 
