@@ -39,6 +39,7 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
+
     fetch("/api/lego/insert", {
       method: "POST",
       body: new URLSearchParams(formData),
@@ -54,7 +55,7 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
         setIsSubmitting(false);
       })
       .catch((error) => {
-        popup({ status: false, message: "提交失败" });
+        popup({ status: false, message: "报名失败" });
         console.error(error);
         setIsSubmitting(false);
       });
@@ -239,7 +240,13 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
                 <span>小组名称</span>
               </label>
               <select
-                onChange={onChange}
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    [e.target.name]: e.target.value,
+                    type: allGroups.find((item) => item.group === e.target.value)?.type || "",
+                  });
+                }}
                 required
                 value={formData.group}
                 id='group'
@@ -250,9 +257,9 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
                   -- 请选择 --
                 </option>
                 {allGroups.map((item) => (
-                  <option key={item.group} disabled={item.count >= maxUsers} value={item.group}>
+                  <option key={item.group} value={item.group}>
                     {item.group}-{item.type}
-                    {item.count >= maxUsers && "(人数已满)"}
+                    {item.count >= maxUsers && "(已达到建议人数)"}
                   </option>
                 ))}
               </select>

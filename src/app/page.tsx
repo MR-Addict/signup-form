@@ -1,16 +1,11 @@
 import Link from "next/link";
-import { getServerSession } from "next-auth";
 
 import style from "./page.module.css";
 import { setMetadata } from "@/lib/utils";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 export const metadata = setMetadata("首页");
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
-  // console.log(session);
-
   return (
     <main className='w-full frame flex flex-col items-center justify-center gap-10'>
       <div className='flex flex-col items-center gap-5'>

@@ -1,6 +1,4 @@
-import Link from "next/link";
-import { BiArrowBack } from "react-icons/bi";
-
+import { Back } from "@/components";
 import { lego } from "@/lib/mongodb";
 import { SignupForm } from "./components";
 import { setMetadata, groupBy } from "@/lib/utils";
@@ -19,9 +17,7 @@ export default async function Page() {
 
   return (
     <main className='w-full flex-1 frame flex flex-row items-start justify-between gap-5'>
-      <Link href='/lego' aria-label='back link' className='hidden md:inline text-blue-600'>
-        <BiArrowBack size='20' />
-      </Link>
+      <Back link='/lego' />
       <SignupForm allGroups={allGroups} />
       <span className='hidden md:inline'></span>
     </main>

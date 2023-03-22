@@ -1,5 +1,3 @@
-import { ObjectId } from "mongodb";
-
 import type { LegoUserType } from "@/types";
 import clientPromise from "./clientPromise";
 
@@ -12,9 +10,9 @@ async function insert(user: LegoUserType) {
       .collection("lego")
       .replaceOne({ name: user.name }, { create_date: new Date(), ...user }, { upsert: true });
 
-    if (isSubmitToday.upsertedCount) return { status: true, message: "提交成功" };
+    if (isSubmitToday.upsertedCount) return { status: true, message: "报名成功" };
     else if (isSubmitToday.modifiedCount) return { status: true, message: user.name + "，你的信息修改成功" };
-    else return { status: false, message: "提交失败" };
+    else return { status: false, message: "报名失败" };
   } catch (error) {
     return { status: false, message: "数据库连接失败" };
   }
