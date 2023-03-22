@@ -37,12 +37,12 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
           isOpenForm ? "scale-100" : "scale-0"
         } duration-200 w-full md:max-w-xs flex flex-col gap-4 rounded-md bg-white p-5 md:p-7`}
       >
-        <h1 className='font-bold text-4xl text-center'>Login</h1>
+        <h1 className='font-bold text-4xl text-center'>登录</h1>
         <div className='flex flex-col gap-6'>
           <div className='flex flex-col w-full gap-1'>
             <label htmlFor='username' className='flex flex-row items-center gap-2 text-gray-700'>
               <FaUserAlt />
-              <span>Username</span>
+              <span>用户名</span>
             </label>
             <input
               required
@@ -59,7 +59,7 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
           <div className='flex flex-col w-full gap-1'>
             <label htmlFor='password' className='flex flex-row items-center gap-2 text-gray-700'>
               <FaLock />
-              <span>Password</span>
+              <span>密码</span>
             </label>
             <input
               required
@@ -82,14 +82,14 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
               }}
               className='w-full py-2 rounded-sm outline outline-1 hover:shadow-md'
             >
-              Cancel
+              取消
             </button>
             <button
               type='submit'
               disabled={formData.password === "" || formData.username === ""}
               className='w-full py-2 rounded-sm outline outline-1 outline-black duration-300 bg-blue-600 hover:bg-blue-700 text-white disabled:cursor-not-allowed'
             >
-              Login
+              登录
             </button>
           </div>
         </div>

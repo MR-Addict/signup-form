@@ -12,16 +12,16 @@ async function compare(username: string, password: string) {
       .aggregate([{ $match: { username } }, { $addFields: { _id: { $convert: { input: "$_id", to: "string" } } } }])
       .next();
 
-    if (!user) return { status: false, message: "User not exists" };
+    if (!user) return { status: false, message: "用户不存在" };
 
     const isMatched = await bcryptjsCompare(password, user.password);
-    if (!isMatched) return { status: false, message: "Password incorrect!" };
+    if (!isMatched) return { status: false, message: "密码错误" };
 
     delete user.password;
     return { status: true, user };
   } catch (error) {
     console.error(error);
-    return { status: false, message: "Error occurred while communicate with mongodb!" };
+    return { status: false, message: "数据库连接失败" };
   }
 }
 const user = {

@@ -227,11 +227,7 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
                   <span>小组名称</span>
                 </label>
                 <input
-                  onChange={(e) => {
-                    setFormData({ ...formData, [e.target.name]: e.target.value });
-                    if (allGroups.find((item) => item.group === e.target.value))
-                      popup({ status: false, message: e.target.value + "已被使用" });
-                  }}
+                  onChange={onChange}
                   required
                   value={formData.group}
                   type='text'

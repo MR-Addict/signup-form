@@ -24,4 +24,5 @@ npm start
 
 ## 2. Available links
 
+- [https://signup.mraddict.one](https://signup.mraddict.one)
 - [https://signup.mraddict.vercel.app](https://signup.mraddict.vercel.app)

@@ -35,7 +35,7 @@ async function query() {
 
     return { status: true, data: result };
   } catch (error) {
-    return { status: false, message: "Cannot establish connection with mongodb!" };
+    return { status: false, message: "数据库连接失败" };
   }
 }
 

@@ -2,6 +2,6 @@ export default function setMetadata(title: string) {
   return {
     title: title,
     icons: { icon: "/favicon.ico" },
-    description: "Vistalab lego and football signup website",
+    description: "远景实验室创意乐高，足球仿真活动报名",
   };
 }
