@@ -2,14 +2,14 @@ import z from "zod";
 
 const LegoUser = z.object({
   _id: z.string().optional(),
-  name: z.string(),
+  name: z.string().min(2).max(10),
   gender: z.enum(["男", "女"]),
-  studentId: z.string(),
-  phone: z.string(),
-  email: z.string().email(),
-  college: z.string(),
+  studentId: z.string().length(12),
+  phone: z.string().length(11),
+  email: z.string().email().max(30),
+  college: z.string().max(20),
   leader: z.enum(["是", "否"]),
-  group: z.string(),
+  group: z.string().max(10),
   type: z.enum(["专业组", "创意组", ""]),
 });
 

@@ -19,7 +19,7 @@ const defaultFormData = {
   phone: "",
   email: "",
   college: "",
-  leader: "是",
+  leader: "否",
   group: "",
   type: "",
 };
@@ -78,6 +78,8 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
               type='text'
               id='name'
               name='name'
+              minLength={2}
+              maxLength={10}
               className={style.input}
             />
           </div>
@@ -112,9 +114,11 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
               onChange={onChange}
               required
               value={formData.studentId}
-              type='number'
+              type='text'
               id='studentId'
               name='studentId'
+              maxLength={12}
+              minLength={12}
               className={style.input}
             />
           </div>
@@ -128,9 +132,11 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
               onChange={onChange}
               required
               value={formData.phone}
-              type='number'
+              type='tel'
               id='phone'
               name='phone'
+              maxLength={11}
+              minLength={11}
               className={style.input}
             />
           </div>
@@ -147,6 +153,7 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
               type='email'
               id='email'
               name='email'
+              maxLength={30}
               className={style.input}
             />
           </div>
@@ -163,6 +170,7 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
               type='text'
               id='college'
               name='college'
+              maxLength={20}
               className={style.input}
             />
           </div>
@@ -229,6 +237,7 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
                   type='text'
                   id='group'
                   name='group'
+                  maxLength={10}
                   className={style.input}
                 />
               </div>
@@ -258,7 +267,7 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
                 </option>
                 {allGroups.map((item) => (
                   <option key={item.group} value={item.group}>
-                    {item.group}-{item.type}
+                    {item.group}•{item.type}
                     {item.count >= maxUsers && "(已达到建议人数)"}
                   </option>
                 ))}

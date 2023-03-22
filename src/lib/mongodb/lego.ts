@@ -8,7 +8,11 @@ async function insert(user: LegoUserType) {
 
     const isSubmitToday = await db
       .collection("lego")
-      .replaceOne({ name: user.name }, { create_date: new Date(), ...user }, { upsert: true });
+      .replaceOne(
+        { name: user.name, studentId: user.studentId },
+        { create_date: new Date(), ...user },
+        { upsert: true }
+      );
 
     if (isSubmitToday.upsertedCount) return { status: true, message: "报名成功" };
     else if (isSubmitToday.modifiedCount) return { status: true, message: user.name + "，你的信息修改成功" };
