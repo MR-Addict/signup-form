@@ -5,6 +5,7 @@ import style from "./page.module.css";
 import { lego } from "@/lib/mongodb";
 import { groupBy, setMetadata } from "@/lib/utils";
 
+export const revalidate = 0;
 export const metadata = setMetadata("乐高 • 信息");
 
 export default async function Page() {

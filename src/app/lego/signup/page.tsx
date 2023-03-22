@@ -5,6 +5,7 @@ import { lego } from "@/lib/mongodb";
 import { SignupForm } from "./components";
 import { setMetadata, groupBy } from "@/lib/utils";
 
+export const revalidate = 0;
 export const metadata = setMetadata("乐高 • 报名");
 
 export default async function Page() {
