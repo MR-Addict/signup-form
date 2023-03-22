@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { BiArrowBack } from "react-icons/bi";
 
-import { setMetadata } from "@/lib/utils";
-import { SignupForm } from "./components";
-
 import { lego } from "@/lib/mongodb";
-import { groupBy } from "@/lib/utils";
+import { SignupForm } from "./components";
+import { setMetadata, groupBy } from "@/lib/utils";
 
 export const metadata = setMetadata("乐高 • 报名");
 

@@ -12,7 +12,7 @@ export default async function Page() {
         <Link href='/lego/signup' className={style.button}>
           参与报名
         </Link>
-        <Link href='/football' className={style.button}>
+        <Link href='/lego/infomation' className={style.button}>
           查看信息
         </Link>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { IoSchoolOutline } from "react-icons/io5";
 import { BiBarChartSquare } from "react-icons/bi";
 import { BsGenderMale, BsPhone } from "react-icons/bs";
@@ -207,8 +207,8 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
                   <option disabled value=''>
                     -- 请选择 --
                   </option>
-                  <option value='创意赛'>创意赛</option>
-                  <option value='专业赛'>专业赛</option>
+                  <option value='创意组'>创意组</option>
+                  <option value='专业组'>专业组</option>
                 </select>
               </div>
 

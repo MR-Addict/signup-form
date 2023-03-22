@@ -10,7 +10,7 @@ const LegoUser = z.object({
   college: z.string(),
   leader: z.enum(["是", "否"]),
   group: z.string(),
-  type: z.enum(["专业赛", "创意赛", ""]),
+  type: z.enum(["专业组", "创意组", ""]),
 });
 
 type LegoUserType = z.TypeOf<typeof LegoUser>;

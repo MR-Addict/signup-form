@@ -1,0 +1,15 @@
+.table {
+  @apply w-full;
+}
+
+.table th {
+  @apply text-gray-700 font-normal;
+}
+
+.table :is(th, td) {
+  @apply text-left px-2 py-0.5 border border-black border-b-0 whitespace-nowrap;
+}
+
+.table tr:last-of-type > td {
+  @apply border-b;
+}
