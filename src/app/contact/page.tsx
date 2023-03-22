@@ -1,13 +1,9 @@
 import Image from "next/image";
-import { getServerSession } from "next-auth";
 
 import { Back } from "@/components";
 import qrcode from "@/data/assets/lego-group-qrcode.png";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
-
   return (
     <main className='w-full frame flex flex-row justify-between gap-5'>
       <Back link='/' />

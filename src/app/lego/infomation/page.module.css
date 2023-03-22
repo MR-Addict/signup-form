@@ -2,14 +2,14 @@
   @apply w-full;
 }
 
-.table th {
-  @apply text-gray-700 font-normal;
+.table thead tr {
+  @apply bg-slate-300 font-medium;
 }
 
 .table :is(th, td) {
-  @apply text-left px-2 py-0.5 border border-black border-b-0 whitespace-nowrap;
+  @apply text-left px-3 py-2 whitespace-nowrap;
 }
 
-.table tr:last-of-type > td {
-  @apply border-b;
+.table tbody tr:nth-of-type(even) {
+  @apply bg-gray-200;
 }

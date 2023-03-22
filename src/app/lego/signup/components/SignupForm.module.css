@@ -2,9 +2,10 @@
 .form {
   @apply w-full flex flex-col gap-5;
 }
+
 /* input */
 .input {
-  @apply w-full outline outline-1 outline-black rounded-sm px-3 py-1.5 text-gray-700;
+  @apply w-full outline outline-1 outline-black rounded-sm px-3 py-1.5 text-gray-700 bg-slate-100;
 }
 
 .input:focus {
@@ -13,7 +14,8 @@
 
 /* input group */
 .group {
-  @apply outline outline-1 outline-black shadow-md p-4 rounded-md flex flex-col gap-3;
+  box-shadow: 0 0 10px #c6c6c6;
+  @apply outline outline-1 outline-black p-4 rounded-md flex flex-col gap-3 bg-slate-50;
 }
 
 /* element */
@@ -22,7 +24,7 @@
 }
 
 .element label {
-  @apply flex flex-row items-center gap-1;
+  @apply flex flex-row items-center gap-1 text-gray-700;
 }
 
 /* submit button */

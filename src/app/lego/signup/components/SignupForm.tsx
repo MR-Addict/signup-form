@@ -63,8 +63,8 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
 
   return (
     <form onSubmit={handleSubmit} className={style.form}>
-      <div>
-        <h1 className='textlg text-gray-700'>个人信息</h1>
+      <div className='flex flex-col gap-1'>
+        <h1 className='text-lg font-semibold text-gray-700'>个人信息</h1>
         <div className={style.group}>
           <div className={style.element}>
             <label htmlFor='name'>
@@ -169,8 +169,8 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
         </div>
       </div>
 
-      <div>
-        <h1 className='text-lg text-gray-700'>小组信息</h1>
+      <div className='flex flex-col gap-1'>
+        <h1 className='text-lg font-semibold text-gray-700'>小组信息</h1>
         <div className={style.group}>
           <div className={style.element}>
             <label htmlFor='leader'>

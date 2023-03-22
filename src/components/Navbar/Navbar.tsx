@@ -6,7 +6,10 @@ import { NormalNavbar, MobileNavbar, Login } from "./components";
 
 export default async function Navbar() {
   return (
-    <nav aria-label='navbar' className='py-5 px-5 md:px-48 w-full flex flex-row items-center justify-between'>
+    <nav
+      aria-label='navbar'
+      className='py-5 px-5 md:px-48 w-full flex flex-row items-center justify-between border-b border-gray-300'
+    >
       <Link href='/'>
         <Image src={logo} alt='logo' height='35' />
       </Link>

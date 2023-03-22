@@ -15,8 +15,8 @@ const navbarData = [
     public: true,
   },
   {
-    title: "问题反馈",
-    link: "/feedback",
+    title: "联系我们",
+    link: "/contact",
     public: true,
   },
 ];
