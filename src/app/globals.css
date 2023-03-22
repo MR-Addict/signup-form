@@ -6,8 +6,11 @@
   @apply px-5 py-5 md:px-48;
 }
 
+.background {
+  background: radial-gradient(#edfcff, #fff);
+}
+
 body {
-  min-height: 100dvh;
   min-height: 100vh;
   font-family: sans-serif;
   @apply flex flex-col items-center justify-between;

@@ -7,7 +7,7 @@ export const metadata = setMetadata("首页");
 
 export default async function Page() {
   return (
-    <main className='w-full frame flex flex-col items-center justify-center gap-10'>
+    <main className='background w-full flex-1 frame flex flex-col items-center justify-center gap-10'>
       <div className='flex flex-col items-center gap-5'>
         <h1 className='flex flex-col items-center md:flex-row text-4xl'>
           <span>远景实验室</span>

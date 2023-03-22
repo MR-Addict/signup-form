@@ -1,7 +1,10 @@
 import Image from "next/image";
 
 import { Back } from "@/components";
+import { setMetadata } from "@/lib/utils";
 import qrcode from "@/data/assets/lego-group-qrcode.png";
+
+export const metadata = setMetadata("联系我们");
 
 export default async function Page() {
   return (
