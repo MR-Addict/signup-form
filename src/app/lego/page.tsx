@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import style from "./page.module.css";
 import { setMetadata } from "@/lib/utils";
 import background from "@/data/assets/legobg.png";
+import style from "../components/component.module.css";
 
 export const metadata = setMetadata("创意乐高");
 
