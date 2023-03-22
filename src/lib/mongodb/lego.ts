@@ -20,44 +20,18 @@ async function insert(user: LegoUserType) {
   }
 }
 
-async function update(_id: string, weather: string, moment: string) {
+async function query() {
   try {
     const client = await clientPromise;
-    const db = client.db("playground");
-
-    const result = await db.collection("moments").updateOne({ _id: new ObjectId(_id) }, { $set: { moment, weather } });
-    if (result.modifiedCount) return { status: true, message: "Update succeeded!" };
-    else return { status: false, message: "Update failed!" };
-  } catch (error) {
-    return { status: false, message: "Error occurred while communicate with mongodb!" };
-  }
-}
-
-async function read() {
-  try {
-    const client = await clientPromise;
-    const db = client.db("playground");
-
-    const result: any[] = await db
-      .collection("moments")
+    const db = client.db("vistalab");
+    // @ts-expect-error
+    const result: LegoUserType[] = await db
+      .collection("lego")
       .find({})
-      .sort({ date: -1 })
       .map((item) => ({ ...item, _id: item._id.toString() }))
       .toArray();
+
     return { status: true, data: result };
-  } catch (error) {
-    return { status: false, message: "Error occurred while communicate with mongodb!" };
-  }
-}
-
-async function remove(_id: string) {
-  try {
-    const client = await clientPromise;
-    const db = client.db("playground");
-
-    const result = await db.collection("moments").deleteOne({ _id: new ObjectId(_id) });
-    if (result.deletedCount > 0) return { status: true, message: "Delete succeeded!" };
-    else return { status: false, message: "Delete failed!" };
   } catch (error) {
     return { status: false, message: "Cannot establish connection with mongodb!" };
   }
@@ -65,9 +39,7 @@ async function remove(_id: string) {
 
 const lego = {
   insert,
-  update,
-  read,
-  remove,
+  query,
 };
 
 export default lego;

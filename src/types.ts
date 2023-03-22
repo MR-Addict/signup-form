@@ -1,6 +1,7 @@
 import z from "zod";
 
 const LegoUser = z.object({
+  _id: z.string().optional(),
   name: z.string(),
   gender: z.enum(["男", "女"]),
   studentId: z.string(),

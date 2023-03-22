@@ -40,7 +40,7 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
         <h1 className='font-bold text-4xl text-center'>Login</h1>
         <div className='flex flex-col gap-6'>
           <div className='flex flex-col w-full gap-1'>
-            <label htmlFor='username' className='flex flex-row items-center gap-2 text-gray-700 font-semibold'>
+            <label htmlFor='username' className='flex flex-row items-center gap-2 text-gray-700'>
               <FaUserAlt />
               <span>Username</span>
             </label>
@@ -50,7 +50,6 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
               id='username'
               name='username'
               maxLength={500}
-              placeholder='Username'
               value={formData.username}
               onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
               className={style.input}
@@ -58,7 +57,7 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
           </div>
 
           <div className='flex flex-col w-full gap-1'>
-            <label htmlFor='password' className='flex flex-row items-center gap-2 text-gray-700 font-semibold'>
+            <label htmlFor='password' className='flex flex-row items-center gap-2 text-gray-700'>
               <FaLock />
               <span>Password</span>
             </label>
@@ -68,7 +67,6 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
               type='password'
               name='password'
               maxLength={500}
-              placeholder='Password'
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
               className={style.input}

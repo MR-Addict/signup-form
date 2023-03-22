@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoSchoolOutline } from "react-icons/io5";
 import { BiBarChartSquare } from "react-icons/bi";
@@ -23,7 +24,10 @@ const defaultFormData = {
   type: "",
 };
 
-export default function SignupForm() {
+const maxUsers = 4;
+
+export default function SignupForm({ allGroups }: { allGroups: { count: number; group: string; type: string }[] }) {
+  const router = useRouter();
   const { popup } = usePopupContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(defaultFormData);
@@ -43,8 +47,10 @@ export default function SignupForm() {
       .then((res) => res.json())
       .then((result) => {
         popup(result);
-        // if (result.status) setFormData(defaultFormData);
-        // else console.error(result.message);
+        if (result.status) {
+          setFormData(defaultFormData);
+          router.refresh();
+        } else console.error(result.message);
         setIsSubmitting(false);
       })
       .catch((error) => {
@@ -212,7 +218,11 @@ export default function SignupForm() {
                   <span>小组名称</span>
                 </label>
                 <input
-                  onChange={onChange}
+                  onChange={(e) => {
+                    setFormData({ ...formData, [e.target.name]: e.target.value });
+                    if (allGroups.find((item) => item.group === e.target.value))
+                      popup({ status: false, message: e.target.value + "已被使用" });
+                  }}
                   required
                   value={formData.group}
                   type='text'
@@ -239,8 +249,12 @@ export default function SignupForm() {
                 <option disabled value=''>
                   -- 请选择 --
                 </option>
-                <option value='是'>是</option>
-                <option value='否'>否</option>
+                {allGroups.map((item) => (
+                  <option key={item.group} disabled={item.count >= maxUsers} value={item.group}>
+                    {item.group}-{item.type}
+                    {item.count >= maxUsers && "(人数已满)"}
+                  </option>
+                ))}
               </select>
             </div>
           )}
