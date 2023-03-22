@@ -1,0 +1,8 @@
+.button {
+  box-shadow: 0 0 5px #2563eb;
+  @apply py-3 px-10  bg-blue-600 text-white rounded-3xl text-xl duration-300;
+}
+
+.button:hover {
+  @apply bg-white outline outline-1 outline-blue-600 text-gray-700;
+}
