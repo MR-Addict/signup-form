@@ -15,16 +15,19 @@ export default function LoginForm({ isOpenForm }: { isOpenForm: boolean }) {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const res = await signIn("credentials", {
+
+    await signIn("credentials", {
       username: formData.username,
       password: formData.password,
       redirect: false,
+      // @ts-expect-error
+    }).then(({ ok, error }) => {
+      if (ok) location.reload();
+      else {
+        console.log(error, "Error");
+        popup({ status: false, message: "用户名或密码错误" });
+      }
     });
-    if (res && !res.ok) {
-      popup({ status: false, message: "用户名或密码错误" });
-    } else {
-      location.reload();
-    }
   };
 
   return (

@@ -7,14 +7,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang='zh-cn'>
       <body>
         <NextauthProvider>
-          <LoginContextProvider>
-            <PopupContextProvider>
+          <PopupContextProvider>
+            <LoginContextProvider>
               {/* @ts-expect-error */}
               <Navbar />
               {children}
               <Footer />
-            </PopupContextProvider>
-          </LoginContextProvider>
+            </LoginContextProvider>
+          </PopupContextProvider>
         </NextauthProvider>
       </body>
     </html>

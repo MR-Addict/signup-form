@@ -15,15 +15,16 @@ export default async function Page() {
   const session = await getServerSession(authOptions);
   const loginUser = session?.user;
 
-  const groupedData = groupBy(result.data, (user) => user.group);
+  // @ts-expect-error
+  const groupedData = groupBy(result.data, (user) => user.groupId);
 
   return (
     <main className='w-full frame flex-1 flex flex-row gap-5'>
       <Back link='/lego' />
       <div className='w-full flex flex-col gap-5'>
         {groupedData.data.map((group) => (
-          <div key={group.category} className='flex flex-col gap-1'>
-            <h1 className='text-gray-700 font-semibold text-lg'>{group.category}</h1>
+          <div key={group.data[0].group} className='flex flex-col gap-1'>
+            <h1 className='text-gray-700 font-semibold text-lg'>{group.data[0].group}</h1>
             <div className='w-full overflow-x-auto shadow-lg'>
               <table className={style.table}>
                 <thead>

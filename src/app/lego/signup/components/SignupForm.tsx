@@ -30,9 +30,10 @@ export default function SignupForm({ users, userId }: { users: LegoUserType[]; u
     type: "",
   };
 
-  const groupedData = groupBy(users, (user) => user.group);
+  // @ts-expect-error
+  const groupedData = groupBy(users, (user) => user.groupId);
   const allGroups = groupedData.data.map((item) => {
-    return { count: item.count, group: item.category, groupId: item.data[0].groupId, type: item.data[0].type };
+    return { count: item.count, group: item.data[0].group, groupId: item.data[0].groupId, type: item.data[0].type };
   });
 
   const storedUser = users.find((user) => user.userId === userId);
