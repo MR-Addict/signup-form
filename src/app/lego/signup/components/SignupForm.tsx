@@ -24,13 +24,14 @@ const emptyFormData = {
   college: "",
   leader: "否",
   group: "",
+  groupId: "",
   type: "",
 };
 
 export default function SignupForm({ users, legoUuid }: { users: LegoUserType[]; legoUuid: string | undefined }) {
   const groupedData = groupBy(users, (user) => user.group);
   const allGroups = groupedData.data.map((item) => {
-    return { count: item.count, group: item.category, type: item.data[0].type };
+    return { count: item.count, group: item.category, groupId: item.data[0].groupId, type: item.data[0].type };
   });
 
   const storedUser = users.find((user) => user._id === legoUuid);
@@ -47,12 +48,14 @@ export default function SignupForm({ users, legoUuid }: { users: LegoUserType[];
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // check if infomatin changed
     if (JSON.stringify(formData) === JSON.stringify(storedUser))
       return popup({ status: true, message: formData.name + "，你的信息没有任何变动" });
-    setIsSubmitting(true);
 
-    fetch("/api/lego/insert", {
-      method: "POST",
+    setIsSubmitting(true);
+    fetch(`/api/lego/${storedUser ? "update" : "insert"}`, {
+      method: storedUser ? "PUT" : "POST",
       body: new URLSearchParams(formData),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
     })
@@ -61,13 +64,12 @@ export default function SignupForm({ users, legoUuid }: { users: LegoUserType[];
         popup(result);
         if (result.status) router.refresh();
         else console.error(result.message);
-        setIsSubmitting(false);
       })
       .catch((error) => {
         popup({ status: false, message: "报名失败" });
         console.error(error);
-        setIsSubmitting(false);
-      });
+      })
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
@@ -186,6 +188,7 @@ export default function SignupForm({ users, legoUuid }: { users: LegoUserType[];
         </div>
       </div>
 
+      {/* leader */}
       {formData.leader === "是" ? (
         <div className='flex flex-col gap-1'>
           <h1 className='text-lg font-semibold text-gray-700'>小组信息</h1>
@@ -196,6 +199,7 @@ export default function SignupForm({ users, legoUuid }: { users: LegoUserType[];
                 <span>小组队长</span>
               </label>
               <select
+                onChange={onChange}
                 disabled={storedUser !== undefined}
                 required
                 value={formData.leader}
@@ -245,6 +249,7 @@ export default function SignupForm({ users, legoUuid }: { users: LegoUserType[];
           </div>
         </div>
       ) : (
+        // none-leader
         <div className='flex flex-col gap-1'>
           <h1 className='text-lg font-semibold text-gray-700'>小组信息</h1>
           <div className={style.group}>
@@ -256,6 +261,7 @@ export default function SignupForm({ users, legoUuid }: { users: LegoUserType[];
               <select
                 onChange={onChange}
                 required
+                disabled={storedUser !== undefined}
                 value={formData.leader}
                 id='leader'
                 name='leader'
@@ -277,9 +283,11 @@ export default function SignupForm({ users, legoUuid }: { users: LegoUserType[];
                     ...formData,
                     [e.target.name]: e.target.value,
                     type: allGroups.find((item) => item.group === e.target.value)?.type || "",
+                    groupId: allGroups.find((item) => item.group === e.target.value)?.groupId || "",
                   });
                 }}
                 required
+                disabled={storedUser !== undefined}
                 value={formData.group}
                 id='group'
                 name='group'
@@ -313,7 +321,7 @@ export default function SignupForm({ users, legoUuid }: { users: LegoUserType[];
               <SpinLoader size='1.5rem' />
             </span>
           ) : (
-            <span>提交</span>
+            <span>{storedUser ? "更新" : "提交"}</span>
           )}
         </button>
       </div>

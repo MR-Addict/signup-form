@@ -10,6 +10,7 @@ const LegoUser = z.object({
   college: z.string().max(20),
   leader: z.enum(["是", "否"]),
   group: z.string().max(10),
+  groupId: z.string().optional(),
   type: z.enum(["专业组", "创意组", ""]),
 });
 
