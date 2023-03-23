@@ -6,10 +6,11 @@ import { signIn } from "next-auth/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 
 import style from "./LoginForm.module.css";
-import { usePopupContext } from "@/components";
+import { usePopupContext, useLoginContext } from "@/components";
 
 export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: boolean; setIsOpenForm: Function }) {
   const { popup } = usePopupContext();
+  const { openLoginForm } = useLoginContext();
   const [formData, setFormData] = useState({ username: "", password: "" });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -77,10 +78,7 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
           <div className='w-full flex flex-row gap-3'>
             <button
               type='button'
-              onClick={() => {
-                setIsOpenForm(false);
-                document.body.style.overflow = "auto";
-              }}
+              onClick={() => openLoginForm(false)}
               className='w-full py-2 rounded-sm outline outline-1 hover:shadow-md'
             >
               取消
@@ -96,14 +94,7 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
 
           <div className='flex flex-row text-sm w-full justify-center'>
             <span>还没有账号？</span>
-            <Link
-              href='/register'
-              onClick={() => {
-                setIsOpenForm(false);
-                document.body.style.overflow = "auto";
-              }}
-              className='text-blue-600 hover:underline'
-            >
+            <Link href='/register' onClick={() => openLoginForm(false)} className='text-blue-600 hover:underline'>
               去注册
             </Link>
           </div>

@@ -13,6 +13,10 @@ export default async function Page() {
   if (!result.status || !result.data) throw new Error(result.message);
 
   const session = await getServerSession(authOptions);
+  const loginUser = session?.user;
+
+  console.log(loginUser);
+
   const groupedData = groupBy(result.data, (user) => user.group);
 
   return (
@@ -30,7 +34,8 @@ export default async function Page() {
                     <th>姓名</th>
                     <th>性别</th>
                     <th>学号</th>
-                    {session && (
+                    {/* @ts-expect-error */}
+                    {loginUser && loginUser.role !== "user" && (
                       <>
                         <th>手机</th>
                         <th>邮箱</th>
@@ -48,7 +53,8 @@ export default async function Page() {
                       <td>{user.name}</td>
                       <td>{user.gender}</td>
                       <td>{user.studentId}</td>
-                      {session && (
+                      {/* @ts-expect-error */}
+                      {loginUser && loginUser.role !== "user" && (
                         <>
                           <td>{user.phone}</td>
                           <td>{user.email}</td>

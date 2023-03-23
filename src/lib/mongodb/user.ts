@@ -9,7 +9,7 @@ async function compare(username: string, password: string) {
     const db = client.db("user");
 
     const user = await db
-      .collection("user")
+      .collection("vistalab")
       .aggregate([{ $match: { username } }, { $addFields: { _id: { $convert: { input: "$_id", to: "string" } } } }])
       .next();
 
@@ -39,7 +39,7 @@ async function register(username: string, password: string, role: "admin" | "mai
 
     const result = await db
       .collection("vistalab")
-      .insertOne({ username, passwrod: hashedPassword, role, create_time: now, update_time: now });
+      .insertOne({ username, password: hashedPassword, role, create_time: now, update_time: now });
 
     if (result.insertedId) return { status: true, message: "注册成功" };
     else return { status: false, message: "注册失败" };
