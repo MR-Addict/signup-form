@@ -22,7 +22,7 @@ export const LoginContextProvider: React.FC<React.PropsWithChildren<{}>> = ({ ch
 
   return (
     <LoginContext.Provider value={{ openLoginForm }}>
-      <LoginForm isOpenForm={isOpenForm} setIsOpenForm={setIsOpenForm} />
+      <LoginForm isOpenForm={isOpenForm} />
       {children}
     </LoginContext.Provider>
   );

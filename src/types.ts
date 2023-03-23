@@ -11,6 +11,7 @@ const LegoUser = z.object({
   leader: z.enum(["是", "否"]),
   group: z.string().max(10),
   groupId: z.string().optional(),
+  userId: z.string().length(24),
   type: z.enum(["专业组", "创意组", ""]),
 });
 

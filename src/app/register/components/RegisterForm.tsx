@@ -93,7 +93,12 @@ export default function RegisterForm() {
           />
         </div>
 
-        <button type='submit'>登录</button>
+        <button
+          disabled={formData.password === "" || formData.username === "" || formData.repeatedPassword === ""}
+          type='submit'
+        >
+          登录
+        </button>
       </div>
     </form>
   );

@@ -12,7 +12,7 @@ async function insert(user: LegoUserType) {
 
     //@ts-expect-error
     const result = await db.collection("lego").insertOne(user.leader === "是" ? { ...user, groupId } : user);
-    if (result.insertedId) return { status: true, message: "报名成功", uuid: result.insertedId.toString() };
+    if (result.insertedId) return { status: true, message: "报名成功" };
     else return { status: false, message: "报名失败" };
   } catch (error) {
     console.error(error);

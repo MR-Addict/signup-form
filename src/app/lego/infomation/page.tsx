@@ -15,8 +15,6 @@ export default async function Page() {
   const session = await getServerSession(authOptions);
   const loginUser = session?.user;
 
-  console.log(loginUser);
-
   const groupedData = groupBy(result.data, (user) => user.group);
 
   return (

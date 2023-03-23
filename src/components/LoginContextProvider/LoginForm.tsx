@@ -8,7 +8,7 @@ import { FaUserAlt, FaLock } from "react-icons/fa";
 import style from "./LoginForm.module.css";
 import { usePopupContext, useLoginContext } from "@/components";
 
-export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: boolean; setIsOpenForm: Function }) {
+export default function LoginForm({ isOpenForm }: { isOpenForm: boolean }) {
   const { popup } = usePopupContext();
   const { openLoginForm } = useLoginContext();
   const [formData, setFormData] = useState({ username: "", password: "" });

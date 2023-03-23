@@ -15,26 +15,27 @@ import { LegoUserType } from "@/types";
 import style from "./SignupForm.module.css";
 import { usePopupContext, SpinLoader } from "@/components";
 
-const emptyFormData = {
-  name: "",
-  gender: "",
-  studentId: "",
-  phone: "",
-  email: "",
-  college: "",
-  leader: "否",
-  group: "",
-  groupId: "",
-  type: "",
-};
+export default function SignupForm({ users, userId }: { users: LegoUserType[]; userId: string }) {
+  const emptyFormData = {
+    name: "",
+    gender: "",
+    studentId: "",
+    phone: "",
+    email: "",
+    college: "",
+    leader: "否",
+    group: "",
+    groupId: "",
+    userId,
+    type: "",
+  };
 
-export default function SignupForm({ users, legoUuid }: { users: LegoUserType[]; legoUuid: string | undefined }) {
   const groupedData = groupBy(users, (user) => user.group);
   const allGroups = groupedData.data.map((item) => {
     return { count: item.count, group: item.category, groupId: item.data[0].groupId, type: item.data[0].type };
   });
 
-  const storedUser = users.find((user) => user._id === legoUuid);
+  const storedUser = users.find((user) => user.userId === userId);
   const defaultFormData = storedUser || emptyFormData;
 
   const router = useRouter();
@@ -42,9 +43,7 @@ export default function SignupForm({ users, legoUuid }: { users: LegoUserType[];
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(defaultFormData);
 
-  function onChange(e: any) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
+  const onChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -310,6 +309,7 @@ export default function SignupForm({ users, legoUuid }: { users: LegoUserType[];
       <div className='flex flex-row justify-end'>
         <button
           type='submit'
+          disabled={isSubmitting}
           className={[
             style.submit,
             isSubmitting ? style.deactive : style.active,
