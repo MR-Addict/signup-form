@@ -29,7 +29,7 @@ MONGODB_URI="mongodb://username:password@mongodb0.example.com:27017/"
 start project:
 
 ```bash
-npm start
+docker-compose up -d
 ```
 
 ## 3. Available links

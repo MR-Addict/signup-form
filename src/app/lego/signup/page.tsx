@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { Back } from "@/components";
 import { lego } from "@/lib/mongodb";
 import { SignupForm } from "./components";
-import { setMetadata, groupBy } from "@/lib/utils";
+import { setMetadata } from "@/lib/utils";
 
 export const revalidate = 0;
 export const metadata = setMetadata("创意乐高 • 参与报名");
