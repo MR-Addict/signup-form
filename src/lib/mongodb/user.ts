@@ -21,7 +21,7 @@ async function compare(username: string, password: string) {
     return { status: true, user };
   } catch (error) {
     console.error(error);
-    return { status: false, message: "数据库连接失败" };
+    return { status: false, message: "数据库通信失败" };
   }
 }
 const user = {

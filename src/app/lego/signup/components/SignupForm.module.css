@@ -12,6 +12,10 @@
   @apply outline-blue-600;
 }
 
+.input:disabled {
+  @apply outline-gray-300;
+}
+
 /* input group */
 .group {
   box-shadow: 0 0 10px #c6c6c6;

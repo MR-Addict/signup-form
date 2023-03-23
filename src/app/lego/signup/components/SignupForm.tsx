@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
 import { IoSchoolOutline } from "react-icons/io5";
 import { BiBarChartSquare } from "react-icons/bi";
 import { BsGenderMale, BsPhone } from "react-icons/bs";
@@ -9,10 +10,12 @@ import { HiOutlineUserGroup } from "react-icons/hi2";
 import { MdOutlineFlagCircle } from "react-icons/md";
 import { AiOutlineUser, AiOutlineIdcard, AiOutlineMail } from "react-icons/ai";
 
+import { groupBy } from "@/lib/utils";
+import { LegoUserType } from "@/types";
 import style from "./SignupForm.module.css";
 import { usePopupContext, SpinLoader } from "@/components";
 
-const defaultFormData = {
+const emptyFormData = {
   name: "",
   gender: "",
   studentId: "",
@@ -24,9 +27,15 @@ const defaultFormData = {
   type: "",
 };
 
-const maxUsers = 4;
+export default function SignupForm({ users, legoUuid }: { users: LegoUserType[]; legoUuid: string | undefined }) {
+  const groupedData = groupBy(users, (user) => user.group);
+  const allGroups = groupedData.data.map((item) => {
+    return { count: item.count, group: item.category, type: item.data[0].type };
+  });
 
-export default function SignupForm({ allGroups }: { allGroups: { count: number; group: string; type: string }[] }) {
+  const storedUser = users.find((user) => user._id === legoUuid);
+  const defaultFormData = storedUser || emptyFormData;
+
   const router = useRouter();
   const { popup } = usePopupContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,6 +47,8 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (JSON.stringify(formData) === JSON.stringify(storedUser))
+      return popup({ status: true, message: formData.name + "，你的信息没有任何变动" });
     setIsSubmitting(true);
 
     fetch("/api/lego/insert", {
@@ -48,10 +59,8 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
       .then((res) => res.json())
       .then((result) => {
         popup(result);
-        if (result.status) {
-          setFormData(defaultFormData);
-          router.refresh();
-        } else console.error(result.message);
+        if (result.status) router.refresh();
+        else console.error(result.message);
         setIsSubmitting(false);
       })
       .catch((error) => {
@@ -177,68 +186,86 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
         </div>
       </div>
 
-      <div className='flex flex-col gap-1'>
-        <h1 className='text-lg font-semibold text-gray-700'>小组信息</h1>
-        <div className={style.group}>
-          <div className={style.element}>
-            <label htmlFor='leader'>
-              <HiOutlineUserGroup />
-              <span>小组队长</span>
-            </label>
-            <select
-              onChange={onChange}
-              required
-              value={formData.leader}
-              id='leader'
-              name='leader'
-              className={style.input}
-            >
-              <option value='是'>是</option>
-              <option value='否'>否</option>
-            </select>
+      {formData.leader === "是" ? (
+        <div className='flex flex-col gap-1'>
+          <h1 className='text-lg font-semibold text-gray-700'>小组信息</h1>
+          <div className={style.group}>
+            <div className={style.element}>
+              <label htmlFor='leader'>
+                <HiOutlineUserGroup />
+                <span>小组队长</span>
+              </label>
+              <select
+                disabled={storedUser !== undefined}
+                required
+                value={formData.leader}
+                id='leader'
+                name='leader'
+                className={style.input}
+              >
+                <option value='是'>是</option>
+                <option value='否'>否</option>
+              </select>
+            </div>
+
+            <div className={style.element}>
+              <label htmlFor='type'>
+                <MdOutlineFlagCircle />
+                <span>小组赛道</span>
+              </label>
+              <select onChange={onChange} required value={formData.type} id='type' name='type' className={style.input}>
+                <option disabled value=''>
+                  -- 请选择 --
+                </option>
+                <option value='创意组'>创意组</option>
+                <option value='专业组'>专业组</option>
+              </select>
+            </div>
+
+            <div className={style.element}>
+              <label htmlFor='group'>
+                <BiBarChartSquare />
+                <span>小组名称</span>
+              </label>
+              <input
+                onChange={(e) => {
+                  setFormData({ ...formData, [e.target.name]: e.target.value });
+                  if (allGroups.find((item) => e.target.value !== storedUser?.group && item.group === e.target.value))
+                    popup({ status: false, message: `警告：${e.target.value}已被使用` });
+                }}
+                required
+                value={formData.group}
+                type='text'
+                id='group'
+                name='group'
+                maxLength={10}
+                className={style.input}
+              />
+            </div>
           </div>
+        </div>
+      ) : (
+        <div className='flex flex-col gap-1'>
+          <h1 className='text-lg font-semibold text-gray-700'>小组信息</h1>
+          <div className={style.group}>
+            <div className={style.element}>
+              <label htmlFor='leader'>
+                <HiOutlineUserGroup />
+                <span>小组队长</span>
+              </label>
+              <select
+                onChange={onChange}
+                required
+                value={formData.leader}
+                id='leader'
+                name='leader'
+                className={style.input}
+              >
+                <option value='是'>是</option>
+                <option value='否'>否</option>
+              </select>
+            </div>
 
-          {formData.leader === "是" ? (
-            <>
-              <div className={style.element}>
-                <label htmlFor='type'>
-                  <MdOutlineFlagCircle />
-                  <span>小组赛道</span>
-                </label>
-                <select
-                  onChange={onChange}
-                  required
-                  value={formData.type}
-                  id='type'
-                  name='type'
-                  className={style.input}
-                >
-                  <option disabled value=''>
-                    -- 请选择 --
-                  </option>
-                  <option value='创意组'>创意组</option>
-                  <option value='专业组'>专业组</option>
-                </select>
-              </div>
-
-              <div className={style.element}>
-                <label htmlFor='group'>
-                  <BiBarChartSquare />
-                  <span>小组名称</span>
-                </label>
-                <input
-                  onChange={onChange}
-                  required
-                  value={formData.group}
-                  type='text'
-                  id='group'
-                  name='group'
-                  maxLength={10}
-                  className={style.input}
-                />
-              </div>
-            </>
-          ) : (
             <div className={style.element}>
               <label htmlFor='group'>
                 <BiBarChartSquare />
@@ -264,14 +291,13 @@ export default function SignupForm({ allGroups }: { allGroups: { count: number; 
                 {allGroups.map((item) => (
                   <option key={item.group} value={item.group}>
                     {item.group}•{item.type}
-                    {item.count >= maxUsers && "(已达到建议人数)"}
                   </option>
                 ))}
               </select>
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className='flex flex-row justify-end'>
         <button
