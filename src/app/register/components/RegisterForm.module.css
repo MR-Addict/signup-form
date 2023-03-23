@@ -1,0 +1,22 @@
+/* form */
+.form {
+  @apply w-full md:max-w-xs flex flex-col gap-5 mt-20;
+}
+
+/* input */
+.form input {
+  @apply p-2 rounded-sm outline outline-1 text-gray-700;
+}
+
+/* submit button */
+.form button {
+  @apply w-full py-2 rounded-sm outline outline-1 outline-black duration-300 bg-blue-600 text-white mt-2;
+}
+
+.form button:hover {
+  @apply bg-blue-700;
+}
+
+.form:invalid button:hover {
+  @apply cursor-not-allowed;
+}

@@ -6,7 +6,6 @@ import style from "./page.module.css";
 import { groupBy, setMetadata } from "@/lib/utils";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
-export const revalidate = 0;
 export const metadata = setMetadata("创意乐高 • 报名信息");
 
 export default async function Page() {

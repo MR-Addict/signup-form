@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
@@ -37,7 +38,7 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
           isOpenForm ? "scale-100" : "scale-0"
         } duration-200 w-full md:max-w-xs flex flex-col gap-4 rounded-md bg-white p-5 md:p-7`}
       >
-        <h1 className='font-bold text-4xl text-center'>登录</h1>
+        <h1 className='font-bold text-3xl text-center'>登录</h1>
         <div className='flex flex-col gap-6'>
           <div className='flex flex-col w-full gap-1'>
             <label htmlFor='username' className='flex flex-row items-center gap-2 text-gray-700'>
@@ -49,7 +50,7 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
               type='text'
               id='username'
               name='username'
-              maxLength={500}
+              maxLength={10}
               value={formData.username}
               onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
               className={style.input}
@@ -66,7 +67,7 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
               id='password'
               type='password'
               name='password'
-              maxLength={500}
+              maxLength={100}
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
               className={style.input}
@@ -91,6 +92,20 @@ export default function LoginForm({ isOpenForm, setIsOpenForm }: { isOpenForm: b
             >
               登录
             </button>
+          </div>
+
+          <div className='flex flex-row text-sm w-full justify-center'>
+            <span>还没有账号？</span>
+            <Link
+              href='/register'
+              onClick={() => {
+                setIsOpenForm(false);
+                document.body.style.overflow = "auto";
+              }}
+              className='text-blue-600 hover:underline'
+            >
+              去注册
+            </Link>
           </div>
         </div>
       </form>
