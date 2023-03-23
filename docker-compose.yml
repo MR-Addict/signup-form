@@ -1,0 +1,10 @@
+version: "3"
+services:
+  signup-form:
+    build: .
+    image: signup-form
+    container_name: signup-form
+    network_mode: bridge
+    restart: unless-stopped
+    ports:
+      - 3000:3000

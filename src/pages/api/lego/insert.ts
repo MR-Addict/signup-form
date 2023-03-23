@@ -5,14 +5,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { LegoUser } from "@/types";
 import { lego } from "@/lib/mongodb";
 
-function setCookie(req: NextApiRequest, res: NextApiResponse, cookieValue: string) {
-  const cookieName = "lego.uuid";
-  const legoUuidCookie = cookie.parse(req.headers.cookie || "")[cookieName];
-
-  if (legoUuidCookie) return;
+function setCookie(res: NextApiResponse, cookieValue: string) {
   res.setHeader(
     "Set-Cookie",
-    cookie.serialize(cookieName, cookieValue, {
+    cookie.serialize("lego.uuid", cookieValue, {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 7 * 30,
       path: "/",
@@ -29,6 +25,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!parsedResult.success) return res.json({ status: false, message: "对不起，你提交的信息不合法" });
 
   const result = await lego.insert(parsedResult.data);
-  if (result.uuid) setCookie(req, res, result.uuid);
+  if (result.uuid) setCookie(res, result.uuid);
   return res.status(result.status ? 200 : 500).json(result);
 }
