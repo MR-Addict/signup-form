@@ -25,7 +25,7 @@ const navbarData = [
   },
   {
     title: "浏览主站",
-    link: "https://vistalab.top",
+    link: "https://www.vistalab.top",
     public: true,
     local: false,
   },
