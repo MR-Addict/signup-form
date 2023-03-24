@@ -47,7 +47,7 @@ export default async function Page() {
                 </thead>
                 <tbody>
                   {group.data.map((user, index) => (
-                    <tr key={user._id} style={{ color: user.leader === "是" ? "green" : "" }}>
+                    <tr key={user.userId} style={{ color: user.leader === "是" ? "green" : "" }}>
                       <td>{index + 1}</td>
                       <td>{user.name}</td>
                       <td>{user.gender}</td>

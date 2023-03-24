@@ -24,7 +24,7 @@ export default function LoginForm({ isOpenForm }: { isOpenForm: boolean }) {
     }).then(({ ok, error }) => {
       if (ok) location.reload();
       else {
-        console.log(error, "Error");
+        console.error(error, "Error");
         popup({ status: false, message: "用户名或密码错误" });
       }
     });

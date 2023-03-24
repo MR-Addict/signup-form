@@ -10,12 +10,17 @@ import { HiOutlineUserGroup } from "react-icons/hi2";
 import { MdOutlineFlagCircle } from "react-icons/md";
 import { AiOutlineUser, AiOutlineIdcard, AiOutlineMail } from "react-icons/ai";
 
-import { groupBy } from "@/lib/utils";
 import { LegoUserType } from "@/types";
 import style from "./SignupForm.module.css";
 import { usePopupContext, SpinLoader } from "@/components";
 
-export default function SignupForm({ users, userId }: { users: LegoUserType[]; userId: string }) {
+interface Props {
+  storedUser?: LegoUserType;
+  userId: string;
+  groups: { groupId: string; group: string; type: string }[];
+}
+
+export default function SignupForm({ storedUser, userId, groups }: Props) {
   const emptyFormData = {
     name: "",
     gender: "",
@@ -30,13 +35,6 @@ export default function SignupForm({ users, userId }: { users: LegoUserType[]; u
     type: "",
   };
 
-  // @ts-expect-error
-  const groupedData = groupBy(users, (user) => user.groupId);
-  const allGroups = groupedData.data.map((item) => {
-    return { count: item.count, group: item.data[0].group, groupId: item.data[0].groupId, type: item.data[0].type };
-  });
-
-  const storedUser = users.find((user) => user.userId === userId);
   const defaultFormData = storedUser || emptyFormData;
 
   const router = useRouter();
@@ -50,7 +48,7 @@ export default function SignupForm({ users, userId }: { users: LegoUserType[]; u
     event.preventDefault();
 
     // check if infomatin changed
-    if (JSON.stringify(formData) === JSON.stringify(storedUser))
+    if (storedUser && JSON.stringify(formData) === JSON.stringify(storedUser))
       return popup({ status: true, message: formData.name + "，你的信息没有任何变动" });
 
     setIsSubmitting(true);
@@ -200,7 +198,7 @@ export default function SignupForm({ users, userId }: { users: LegoUserType[]; u
               </label>
               <select
                 onChange={onChange}
-                disabled={storedUser !== undefined}
+                disabled={storedUser !== null}
                 required
                 value={formData.leader}
                 id='leader'
@@ -234,7 +232,7 @@ export default function SignupForm({ users, userId }: { users: LegoUserType[]; u
               <input
                 onChange={(e) => {
                   setFormData({ ...formData, [e.target.name]: e.target.value });
-                  if (allGroups.find((item) => e.target.value !== storedUser?.group && item.group === e.target.value))
+                  if (groups.find((item) => e.target.value !== storedUser?.group && item.group === e.target.value))
                     popup({ status: false, message: `警告：${e.target.value}已被使用` });
                 }}
                 required
@@ -261,7 +259,7 @@ export default function SignupForm({ users, userId }: { users: LegoUserType[]; u
               <select
                 onChange={onChange}
                 required
-                disabled={storedUser !== undefined}
+                disabled={storedUser !== null}
                 value={formData.leader}
                 id='leader'
                 name='leader'
@@ -282,12 +280,12 @@ export default function SignupForm({ users, userId }: { users: LegoUserType[]; u
                   setFormData({
                     ...formData,
                     [e.target.name]: e.target.value,
-                    type: allGroups.find((item) => item.group === e.target.value)?.type || "",
-                    groupId: allGroups.find((item) => item.group === e.target.value)?.groupId || "",
+                    type: groups.find((item) => item.group === e.target.value)?.type || "",
+                    groupId: groups.find((item) => item.group === e.target.value)?.groupId || "",
                   });
                 }}
                 required
-                disabled={storedUser !== undefined}
+                disabled={storedUser !== null}
                 value={formData.group}
                 id='group'
                 name='group'
@@ -296,7 +294,7 @@ export default function SignupForm({ users, userId }: { users: LegoUserType[]; u
                 <option disabled value=''>
                   -- 请选择 --
                 </option>
-                {allGroups.map((item) => (
+                {groups.map((item) => (
                   <option key={item.group} value={item.group}>
                     {item.group}•{item.type}
                   </option>

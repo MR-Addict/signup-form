@@ -16,13 +16,14 @@ export default async function Page() {
   // @ts-expect-error
   const userId: string = session?.user._id;
 
-  const result = await lego.query();
-  if (!result.status || !result.data) throw new Error(result.message);
+  const result = await lego.signupUserAndGroups(userId);
+  const data = result?.data;
+  if (!data) throw new Error(result?.message);
 
   return (
     <main className='w-full flex-1 frame flex flex-row items-start justify-between gap-5'>
       <Back link='/lego' />
-      <SignupForm users={result.data} userId={userId} />
+      <SignupForm storedUser={data.user} groups={data.groups} userId={userId} />
       <span className='hidden md:inline'></span>
     </main>
   );
