@@ -18,18 +18,23 @@ export default async function Page() {
     <main className='background w-full flex-1 frame flex flex-col items-center justify-center gap-5'>
       <Image placeholder='blur' src={background} alt='background' className='w-full max-w-md' />
 
-      {session ? (
+      <div className='w-full max-w-sm flex flex-col gap-5 md:gap-7'>
+        {!session && (
+          <h1 className='text-lg text-gray-700 text-center'>出于管理的需要，您需要登录后才能参与报名，感谢您的理解</h1>
+        )}
         <div className='flex flex-col md:flex-row gap-5 md:gap-7'>
-          <Link href='/lego/signup' className={[style.button, "bg-blue-600 text-white"].join(" ")}>
-            参与报名
-          </Link>
+          {session ? (
+            <Link href='/lego/signup' className={[style.button, "bg-blue-600 text-white"].join(" ")}>
+              参与报名
+            </Link>
+          ) : (
+            <LoginButton />
+          )}
           <Link href='/lego/infomation' className={[style.button, "bg-blue-600 text-white"].join(" ")}>
             报名信息
           </Link>
         </div>
-      ) : (
-        <LoginButton />
-      )}
+      </div>
     </main>
   );
 }

@@ -51,6 +51,15 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
     if (storedUser && JSON.stringify(formData) === JSON.stringify(storedUser))
       return popup({ status: true, message: formData.name + "，你的信息没有任何变动" });
 
+    if (
+      storedUser?.leader === "是" &&
+      formData.group !== storedUser?.group &&
+      groups.find((item) => item.group === formData.group)
+    ) {
+      popup({ status: false, message: `警告：${formData.group}已被使用` });
+      return;
+    }
+
     setIsSubmitting(true);
     fetch(`/api/lego/${storedUser ? "update" : "insert"}`, {
       method: storedUser ? "PUT" : "POST",

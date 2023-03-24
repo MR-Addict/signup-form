@@ -1,6 +1,6 @@
 .button {
   box-shadow: 0 0 5px #2563eb;
-  @apply py-3 px-10 rounded-3xl text-xl duration-300 text-center;
+  @apply w-full py-3 rounded-3xl text-xl duration-300 text-center;
 }
 
 .button:hover {
