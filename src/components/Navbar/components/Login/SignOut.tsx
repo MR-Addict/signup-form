@@ -11,7 +11,7 @@ export default function SignOut() {
   return (
     <div className={style.frame}>
       <div className='flex flex-col items-center'>
-        <div className='hidden md:flex flex-col gap-0'>
+        <div className='hidden md:flex flex-col items-center gap-0'>
           <span className='text-blue-600'>
             <HiOutlineUserCircle size={30} />
           </span>
