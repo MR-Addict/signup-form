@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import { FaUserAlt, FaUnlock, FaUnlockAlt } from "react-icons/fa";
 
 import style from "./RegisterForm.module.css";
 import { usePopupContext } from "@/components";
@@ -61,7 +61,7 @@ export default function RegisterForm() {
 
         <div className='flex flex-col w-full gap-1'>
           <label htmlFor='registePassword' className='flex flex-row items-center gap-2 text-gray-700'>
-            <FaLock />
+            <FaUnlock />
             <span>密码</span>
           </label>
           <input
@@ -78,7 +78,7 @@ export default function RegisterForm() {
 
         <div className='flex flex-col w-full gap-1'>
           <label htmlFor='repeatedPassword' className='flex flex-row items-center gap-2 text-gray-700'>
-            <FaLock />
+            <FaUnlockAlt />
             <span>确认密码</span>
           </label>
           <input

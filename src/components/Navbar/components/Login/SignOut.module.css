@@ -1,0 +1,21 @@
+.frame {
+  @apply flex flex-col items-center text-gray-700 relative md:cursor-pointer;
+}
+
+.signout {
+  box-shadow: 0 0 5px gray;
+  @apply duration-300 origin-top scale-0 delay-100 opacity-0;
+  @apply hidden md:block absolute bg-blue-600 text-white py-1.5 px-4 rounded-sm outline outline-1 outline-blue-600 -bottom-[100%];
+}
+
+.frame:hover .signout {
+  @apply scale-100 opacity-100;
+}
+
+.signout:hover {
+  @apply bg-white text-gray-700;
+}
+
+.button {
+  @apply md:hidden py-1 px-4 rounded-sm outline outline-1 outline-blue-600 text-blue-600;
+}

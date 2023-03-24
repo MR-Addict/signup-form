@@ -17,9 +17,15 @@ export default function NormalNavbar() {
         .filter((item) => item.public || session)
         .map((item, index) => (
           <li key={index}>
-            <Link href={item.link} className={[rootPath === item.link ? style.active : "", style.link].join(" ")}>
-              {item.title}
-            </Link>
+            {item.local ? (
+              <Link href={item.link} className={[rootPath === item.link ? style.active : "", style.link].join(" ")}>
+                {item.title}
+              </Link>
+            ) : (
+              <a href={item.link} target='_blank' className={style.link}>
+                {item.title}
+              </a>
+            )}
           </li>
         ))}
     </ul>

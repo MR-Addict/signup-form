@@ -37,15 +37,25 @@ export default function MobileNavbar() {
             .filter((item) => item.public || session)
             .map((item, index) => (
               <li key={index}>
-                <Link
-                  href={item.link}
-                  onClick={() => setIsExpand(false)}
-                  className={`w-full font-semibold flex flex-row gap-2 items-center justify-start border-b-2 p-2 rounded-md ${
-                    rootPath === item.link ? "text-blue-600" : "text-gray-700 hover:text-blue-600"
-                  }`}
-                >
-                  {item.title}
-                </Link>
+                {item.local ? (
+                  <Link
+                    href={item.link}
+                    onClick={() => setIsExpand(false)}
+                    className={`w-full font-semibold flex flex-row gap-2 items-center justify-start border-b-2 p-2 rounded-md ${
+                      rootPath === item.link ? "text-blue-600" : "text-gray-700 hover:text-blue-600"
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                ) : (
+                  <a
+                    href={item.link}
+                    target='_blank'
+                    className='w-full font-semibold flex flex-row gap-2 items-center justify-start border-b-2 p-2 rounded-md text-gray-700 hover:text-blue-600'
+                  >
+                    {item.title}
+                  </a>
+                )}
               </li>
             ))}
         </ul>
