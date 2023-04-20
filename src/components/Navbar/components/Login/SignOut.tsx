@@ -23,6 +23,7 @@ export default function SignOut() {
           Logout
         </button>
       </div>
+
       <div className={style.signout}>
         <button type='button' onClick={() => signOut()}>
           Logout

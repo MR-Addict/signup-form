@@ -10,8 +10,8 @@ import { HiOutlineUserGroup } from "react-icons/hi2";
 import { MdOutlineFlagCircle } from "react-icons/md";
 import { AiOutlineUser, AiOutlineIdcard, AiOutlineMail } from "react-icons/ai";
 
-import { LegoUserType } from "@/types";
 import style from "./SignupForm.module.css";
+import { LegoUserType } from "@/types";
 import { usePopupContext, SpinLoader } from "@/components";
 
 interface Props {
@@ -43,6 +43,8 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
   const [formData, setFormData] = useState(defaultFormData);
 
   const onChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  console.log(formData);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -90,14 +92,14 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
               <span>姓名</span>
             </label>
             <input
-              onChange={onChange}
               required
-              value={formData.name}
               type='text'
               id='name'
               name='name'
               minLength={2}
               maxLength={10}
+              onChange={onChange}
+              value={formData.name}
               className={style.input}
             />
           </div>
@@ -108,11 +110,11 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
               <span>性别</span>
             </label>
             <select
-              onChange={onChange}
               required
-              value={formData.gender}
               id='gender'
               name='gender'
+              onChange={onChange}
+              value={formData.gender}
               className={style.input}
             >
               <option disabled value=''>
@@ -129,15 +131,15 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
               <span>学号</span>
             </label>
             <input
-              onChange={onChange}
               required
-              value={formData.studentId}
               type='text'
               id='studentId'
               name='studentId'
               maxLength={12}
               minLength={12}
+              onChange={onChange}
               className={style.input}
+              value={formData.studentId}
             />
           </div>
 
@@ -147,14 +149,14 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
               <span>手机号</span>
             </label>
             <input
-              onChange={onChange}
               required
-              value={formData.phone}
               type='tel'
               id='phone'
               name='phone'
               maxLength={11}
               minLength={11}
+              onChange={onChange}
+              value={formData.phone}
               className={style.input}
             />
           </div>
@@ -165,13 +167,13 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
               <span>邮箱</span>
             </label>
             <input
-              onChange={onChange}
               required
-              value={formData.email}
               type='email'
               id='email'
               name='email'
               maxLength={30}
+              onChange={onChange}
+              value={formData.email}
               className={style.input}
             />
           </div>
@@ -182,14 +184,14 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
               <span>学院</span>
             </label>
             <input
-              onChange={onChange}
               required
-              value={formData.college}
               type='text'
               id='college'
               name='college'
               maxLength={20}
+              onChange={onChange}
               className={style.input}
+              value={formData.college}
             />
           </div>
         </div>
@@ -206,13 +208,13 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
                 <span>小组队长</span>
               </label>
               <select
-                onChange={onChange}
-                disabled={storedUser !== null}
                 required
-                value={formData.leader}
                 id='leader'
                 name='leader'
+                value={formData.leader}
                 className={style.input}
+                disabled={storedUser !== null}
+                onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value, group: "", type: "" })}
               >
                 <option value='是'>是</option>
                 <option value='否'>否</option>
@@ -245,11 +247,11 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
                     popup({ status: false, message: `警告：${e.target.value}已被使用` });
                 }}
                 required
-                value={formData.group}
                 type='text'
                 id='group'
                 name='group'
                 maxLength={10}
+                value={formData.group}
                 className={style.input}
               />
             </div>
@@ -266,13 +268,13 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
                 <span>小组队长</span>
               </label>
               <select
-                onChange={onChange}
                 required
-                disabled={storedUser !== null}
-                value={formData.leader}
                 id='leader'
                 name='leader'
+                value={formData.leader}
                 className={style.input}
+                disabled={storedUser !== null}
+                onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value, group: "", type: "" })}
               >
                 <option value='是'>是</option>
                 <option value='否'>否</option>
@@ -294,11 +296,11 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
                   });
                 }}
                 required
-                disabled={storedUser !== null}
-                value={formData.group}
                 id='group'
                 name='group'
+                value={formData.group}
                 className={style.input}
+                disabled={storedUser !== null}
               >
                 <option disabled value=''>
                   -- 请选择 --
