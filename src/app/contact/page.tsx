@@ -12,7 +12,6 @@ export default async function Page() {
       <Back link='/' />
       <div className='flex flex-col md:flex-row gap-10'>
         <Image placeholder='blur' src={qrcode} alt='lego-group-qrcode' className='max-w-xs rounded-md shadow-xl' />
-        <Image placeholder='blur' src={qrcode} alt='football-group-qrcode' className='max-w-xs rounded-md shadow-xl' />
       </div>
       <span></span>
     </main>
