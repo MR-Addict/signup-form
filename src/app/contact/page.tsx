@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { Back } from "@/components";
 import { setMetadata } from "@/lib/utils";
-import qrcode from "@/data/assets/lego-group-qrcode.png";
+import qrcode from "@/data/assets/lego-qrcode.jpg";
 
 export const metadata = setMetadata("联系我们");
 
