@@ -18,9 +18,12 @@ export default async function Page() {
   // @ts-expect-error
   const groupedData = groupBy(result.data, (user) => user.groupId);
 
+  if (groupedData.data.length === 0) return <h1 className='text-lg'>暂无报名信息</h1>;
+
   return (
     <main className='w-full frame flex-1 flex flex-row gap-5'>
       <Back link='/lego' />
+
       <div className='w-full flex flex-col gap-5'>
         {groupedData.data.map((group) => (
           <div key={group.data[0].group} className='flex flex-col gap-1'>
