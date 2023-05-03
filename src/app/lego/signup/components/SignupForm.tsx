@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-
 import { IoSchoolOutline } from "react-icons/io5";
 import { BiBarChartSquare } from "react-icons/bi";
+import { useState, useEffect, useMemo } from "react";
 import { BsGenderMale, BsPhone } from "react-icons/bs";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { MdOutlineFlagCircle } from "react-icons/md";
@@ -35,16 +34,16 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
     type: "",
   };
 
-  const defaultFormData = storedUser || emptyFormData;
+  const defaultFormData = useMemo(() => storedUser || emptyFormData, [storedUser]);
 
   const router = useRouter();
   const { popup } = usePopupContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState(defaultFormData);
 
-  const onChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  useEffect(() => setFormData(defaultFormData), [defaultFormData]);
 
-  console.log(formData);
+  const onChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -300,7 +299,6 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
                 name='group'
                 value={formData.group}
                 className={style.input}
-                disabled={storedUser !== null}
               >
                 <option disabled value=''>
                   -- 请选择 --

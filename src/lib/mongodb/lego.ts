@@ -25,6 +25,12 @@ async function insert(user: LegoUserType) {
   try {
     const client = await clientPromise;
     const db = client.db("vistalab");
+
+    if (user.leader === "是") {
+      const duplicatedGroup = await db.collection("lego").find({ group: user.group, leader: "是" }).next();
+      if (duplicatedGroup) return { status: false, message: `警告：${user.group}已被使用` };
+    }
+
     const groupId = uuidv4();
 
     const result = await db
@@ -44,10 +50,16 @@ async function update(user: LegoUserType) {
     const db = client.db("vistalab");
 
     // update group name and group type
-    if (user.leader === "是")
+    if (user.leader === "是") {
+      const duplicatedGroup = await db.collection("lego").find({ group: user.group, leader: "是" }).next();
+
+      if (duplicatedGroup && duplicatedGroup.group === user.group && duplicatedGroup.groupId !== user.groupId) {
+        return { status: false, message: `警告：${user.group}已被使用` };
+      }
       await db
         .collection("lego")
         .updateMany({ groupId: user.groupId }, { $set: { group: user.group, type: user.type } });
+    }
 
     // update user infomation
     const result = await db.collection("lego").replaceOne({ userId: user.userId }, user, { upsert: true });
