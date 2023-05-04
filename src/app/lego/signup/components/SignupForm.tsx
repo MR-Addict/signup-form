@@ -44,6 +44,7 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
   useEffect(() => setFormData(defaultFormData), [defaultFormData]);
 
   const onChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  console.log(formData);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -213,7 +214,9 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
                 value={formData.leader}
                 className={style.input}
                 disabled={storedUser !== null}
-                onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value, group: "", type: "" })}
+                onChange={(e) =>
+                  setFormData({ ...formData, [e.target.name]: e.target.value, group: "", groupId: "", type: "" })
+                }
               >
                 <option value='是'>是</option>
                 <option value='否'>否</option>
@@ -273,7 +276,9 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
                 value={formData.leader}
                 className={style.input}
                 disabled={storedUser !== null}
-                onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value, group: "", type: "" })}
+                onChange={(e) =>
+                  setFormData({ ...formData, [e.target.name]: e.target.value, group: "", groupId: "", type: "" })
+                }
               >
                 <option value='是'>是</option>
                 <option value='否'>否</option>
