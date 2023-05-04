@@ -33,6 +33,13 @@ export default async function Page() {
           <Link href='/lego/infomation' className={[style.button, "bg-blue-600 text-white"].join(" ")}>
             报名信息
           </Link>
+
+          {/* @ts-expect-error */}
+          {session?.user?.role === "admin" && (
+            <Link href='/lego/analytics' className={[style.button, "bg-blue-600 text-white"].join(" ")}>
+              数据统计
+            </Link>
+          )}
         </div>
       </div>
     </main>

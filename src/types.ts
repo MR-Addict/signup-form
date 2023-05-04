@@ -11,7 +11,7 @@ const LegoUser = z.object({
   group: z.string().max(10),
   groupId: z.string().optional(),
   userId: z.string().length(24),
-  type: z.enum(["专业组", "创意组", ""]),
+  type: z.enum(["专业组", "创意组", "创意专业兼报", ""]),
 });
 
 type LegoUserType = z.TypeOf<typeof LegoUser>;

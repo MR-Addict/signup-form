@@ -234,6 +234,7 @@ export default function SignupForm({ storedUser, userId, groups }: Props) {
                 </option>
                 <option value='创意组'>创意组</option>
                 <option value='专业组'>专业组</option>
+                <option value='创意专业兼报'>创意专业兼报</option>
               </select>
             </div>
 
